@@ -26,7 +26,7 @@ app.get('/api/events/:id', (req, res) => {
   }
 });
 
-// New DELETE API endpoint
+// DELETE API endpoint
 app.delete('/api/events/:id', (req, res) => {
   const eventId = parseInt(req.params.id);
   const eventIndex = events.findIndex(c => c.id === eventId);
