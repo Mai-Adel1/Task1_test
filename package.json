@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Mai-Adel1/Task1_test#readme",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0"
   }
 }
