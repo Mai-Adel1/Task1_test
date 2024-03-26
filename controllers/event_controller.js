@@ -26,3 +26,19 @@ exports.getEventById = async (req, res) => {
     res.status(400).send(error); 
   }
 };
+
+
+// Add an event (ID is provided in the request body)
+exports.addEvent = async (req, res) => {
+  // Validate event data 
+  const { error } = validateEvent(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const event = new Event(req.body);
+  try {
+    const newEvent = await event.save();
+    res.status(201).send(newEvent);
+  } catch (error) {
+    res.status(400).send(error); 
+  }
+};
