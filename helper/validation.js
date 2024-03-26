@@ -10,3 +10,7 @@ function validateEvent(event) {
   const { error } = schema.validate(event);
   return error ? error.details[0].message : null;
 }
+
+module.exports = {
+    validateEvent,
+};
