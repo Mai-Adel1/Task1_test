@@ -42,3 +42,24 @@ exports.addEvent = async (req, res) => {
     res.status(400).send(error); 
   }
 };
+
+
+// Edit an event (ID is provided in the request body)
+exports.editEvent = async (req, res) => {
+  const eventId = req.params.id;
+  const updates = req.body;
+
+  // Validate event data
+  const { error } = validateEvent(updates);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  try {
+    const updatedEvent = await Event.findByIdAndUpdate(eventId, updates, { new: true });
+    if (!updatedEvent) {
+      return res.status(404).send({ message: 'Event not found' });
+    }
+    res.status(200).send(updatedEvent);
+  } catch (error) {
+    res.status(400).send(error); 
+  }
+};
