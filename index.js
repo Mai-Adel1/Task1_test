@@ -59,6 +59,26 @@ app.post('/api/events', (req, res) => {
   res.send(event);
 });
 
+app.put('/api/events/:id', (req, res) => {
+  const eventId = parseInt(req.params.id);
+  const event = events.find(c => c.id === eventId);
+
+  if (!event) 
+    res.status(404).send(`Event with ID ${eventId} not found!`);
+
+  const result = validateEvent(req.body);
+  if(result.error){
+    res.status(400).send(result.error.details[0].message);
+    console.log(result);
+    return;
+  }
+
+  event.name = req.body.name;
+  res.send(event);
+});
+
+
+
 function validateEvent(event) {
   const schema = Joi.object({
     name: Joi.string().required(),
